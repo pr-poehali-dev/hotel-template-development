@@ -1,12 +1,360 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [bookingData, setBookingData] = useState({
+    checkIn: '',
+    checkOut: '',
+    guests: '2',
+  });
+
+  const rooms = [
+    {
+      id: 'deluxe',
+      title: 'Номер Делюкс',
+      description: 'Элегантный номер с видом на город, площадью 35 м²',
+      price: '15 000',
+      image: '/img/fba2b6cc-9e4c-4c54-b2f5-2ccbb03cea5c.jpg',
+    },
+    {
+      id: 'suite',
+      title: 'Люкс',
+      description: 'Просторный люкс с панорамным видом, площадью 60 м²',
+      price: '35 000',
+      image: '/img/fba2b6cc-9e4c-4c54-b2f5-2ccbb03cea5c.jpg',
+    },
+    {
+      id: 'presidential',
+      title: 'Президентский Люкс',
+      description: 'Роскошные апартаменты с терассой, площадью 120 м²',
+      price: '75 000',
+      image: '/img/fba2b6cc-9e4c-4c54-b2f5-2ccbb03cea5c.jpg',
+    },
+  ];
+
+  const services = [
+    {
+      icon: 'Sparkles',
+      title: 'SPA & Wellness',
+      description: 'Премиальный спа-центр с бассейном и сауной',
+    },
+    {
+      icon: 'Utensils',
+      title: 'Ресторан',
+      description: 'Изысканная кухня от шеф-повара мирового уровня',
+    },
+    {
+      icon: 'Car',
+      title: 'Трансфер',
+      description: 'Персональный трансфер на автомобилях премиум-класса',
+    },
+    {
+      icon: 'Headphones',
+      title: 'Консьерж 24/7',
+      description: 'Круглосуточная поддержка для решения любых вопросов',
+    },
+  ];
+
+  const gallery = [
+    '/img/1d2702d8-048e-4f85-9df0-6d983ab0bc9a.jpg',
+    '/img/4d2916ab-d469-47b7-b4de-6fa7fbfb3a4e.jpg',
+    '/img/fba2b6cc-9e4c-4c54-b2f5-2ccbb03cea5c.jpg',
+  ];
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-white">
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-gray-900">LUXURY HOTEL</h1>
+            <div className="hidden md:flex items-center gap-8">
+              <button onClick={() => scrollToSection('home')} className="text-sm hover:text-primary transition-colors">
+                Главная
+              </button>
+              <button onClick={() => scrollToSection('rooms')} className="text-sm hover:text-primary transition-colors">
+                Номера
+              </button>
+              <button onClick={() => scrollToSection('services')} className="text-sm hover:text-primary transition-colors">
+                Услуги
+              </button>
+              <button onClick={() => scrollToSection('booking')} className="text-sm hover:text-primary transition-colors">
+                Бронирование
+              </button>
+              <button onClick={() => scrollToSection('gallery')} className="text-sm hover:text-primary transition-colors">
+                Галерея
+              </button>
+              <button onClick={() => scrollToSection('contacts')} className="text-sm hover:text-primary transition-colors">
+                Контакты
+              </button>
+            </div>
+            <Button className="bg-primary hover:bg-primary/90 text-white">
+              Забронировать
+            </Button>
+          </div>
+        </div>
+      </nav>
+
+      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('/img/1d2702d8-048e-4f85-9df0-6d983ab0bc9a.jpg')`,
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30"></div>
+        </div>
+        <div className="relative z-10 text-center text-white px-4 animate-fade-in">
+          <h2 className="text-6xl md:text-7xl font-bold mb-6">Добро пожаловать</h2>
+          <p className="text-xl md:text-2xl mb-8 text-gray-200">В мир элегантности и безупречного качества</p>
+          <Button
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg"
+            onClick={() => scrollToSection('rooms')}
+          >
+            Выбрать номер
+          </Button>
+        </div>
+      </section>
+
+      <section id="rooms" className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Номера и Люксы</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Каждый номер создан для вашего абсолютного комфорта и удовольствия
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {rooms.map((room, index) => (
+              <Card
+                key={room.id}
+                className="overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={room.image}
+                    alt={room.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded">
+                    {room.price} ₽/ночь
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-2">{room.title}</h3>
+                  <p className="text-gray-600 mb-4">{room.description}</p>
+                  <Button
+                    className="w-full bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white"
+                    onClick={() => {
+                      setSelectedRoom(room.id);
+                      scrollToSection('booking');
+                    }}
+                  >
+                    Забронировать
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Услуги Отеля</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Безупречный сервис для самых взыскательных гостей
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="text-center p-8 rounded-lg hover:bg-gray-50 transition-all duration-300 group"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                  <Icon name={service.icon} className="text-primary group-hover:text-white" size={28} />
+                </div>
+                <h3 className="text-xl font-bold mb-2">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="booking" className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Бронирование</h2>
+              <p className="text-lg text-gray-600">Забронируйте ваше незабываемое пребывание</p>
+            </div>
+            <Card className="p-8">
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="room">Выберите номер</Label>
+                  <select
+                    id="room"
+                    value={selectedRoom || ''}
+                    onChange={(e) => setSelectedRoom(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Выберите тип номера</option>
+                    {rooms.map((room) => (
+                      <option key={room.id} value={room.id}>
+                        {room.title} - {room.price} ₽/ночь
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="checkIn">Дата заезда</Label>
+                    <Input
+                      id="checkIn"
+                      type="date"
+                      value={bookingData.checkIn}
+                      onChange={(e) => setBookingData({ ...bookingData, checkIn: e.target.value })}
+                      className="border-gray-300"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="checkOut">Дата выезда</Label>
+                    <Input
+                      id="checkOut"
+                      type="date"
+                      value={bookingData.checkOut}
+                      onChange={(e) => setBookingData({ ...bookingData, checkOut: e.target.value })}
+                      className="border-gray-300"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="guests">Количество гостей</Label>
+                  <Input
+                    id="guests"
+                    type="number"
+                    min="1"
+                    max="6"
+                    value={bookingData.guests}
+                    onChange={(e) => setBookingData({ ...bookingData, guests: e.target.value })}
+                    className="border-gray-300"
+                  />
+                </div>
+                <Button className="w-full bg-primary hover:bg-primary/90 text-white py-6 text-lg">
+                  Подтвердить бронирование
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Фотогалерея</h2>
+            <p className="text-lg text-gray-600">Откройте для себя наш отель</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {gallery.map((image, index) => (
+              <div
+                key={index}
+                className="relative h-80 overflow-hidden rounded-lg group cursor-pointer"
+              >
+                <img
+                  src={image}
+                  alt={`Gallery ${index + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <Icon name="ZoomIn" className="text-white" size={40} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contacts" className="py-24 bg-gray-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-8">Контакты</h2>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <Icon name="MapPin" className="text-primary mt-1" size={24} />
+                  <div>
+                    <h3 className="font-semibold mb-1">Адрес</h3>
+                    <p className="text-gray-300">Москва, ул. Тверская, 15</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Icon name="Phone" className="text-primary mt-1" size={24} />
+                  <div>
+                    <h3 className="font-semibold mb-1">Телефон</h3>
+                    <p className="text-gray-300">+7 (495) 123-45-67</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Icon name="Mail" className="text-primary mt-1" size={24} />
+                  <div>
+                    <h3 className="font-semibold mb-1">Email</h3>
+                    <p className="text-gray-300">info@luxuryhotel.ru</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Icon name="Clock" className="text-primary mt-1" size={24} />
+                  <div>
+                    <h3 className="font-semibold mb-1">Режим работы</h3>
+                    <p className="text-gray-300">Круглосуточно</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-800 p-8 rounded-lg">
+              <h3 className="text-2xl font-bold mb-6">Как добраться</h3>
+              <div className="space-y-4 text-gray-300">
+                <div className="flex gap-3">
+                  <Icon name="Train" className="text-primary mt-1" size={20} />
+                  <p>Метро: станция "Тверская" (5 минут пешком)</p>
+                </div>
+                <div className="flex gap-3">
+                  <Icon name="Car" className="text-primary mt-1" size={20} />
+                  <p>На автомобиле: подземная парковка для гостей</p>
+                </div>
+                <div className="flex gap-3">
+                  <Icon name="Plane" className="text-primary mt-1" size={20} />
+                  <p>Аэропорт Шереметьево: 40 минут на автомобиле</p>
+                </div>
+              </div>
+              <Button className="w-full mt-8 bg-primary hover:bg-primary/90">
+                Построить маршрут
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-black text-white py-8">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold mb-2">LUXURY HOTEL</h2>
+          <p className="text-gray-400">© 2024 Все права защищены</p>
+        </div>
+      </footer>
     </div>
   );
 };
