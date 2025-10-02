@@ -81,6 +81,9 @@ const Index = () => {
               <button onClick={() => scrollToSection('home')} className="text-sm hover:text-primary transition-colors">
                 Главная
               </button>
+              <button onClick={() => scrollToSection('gallery')} className="text-sm hover:text-primary transition-colors">
+                Галерея
+              </button>
               <button onClick={() => scrollToSection('rooms')} className="text-sm hover:text-primary transition-colors">
                 Номера
               </button>
@@ -89,9 +92,6 @@ const Index = () => {
               </button>
               <button onClick={() => scrollToSection('booking')} className="text-sm hover:text-primary transition-colors">
                 Бронирование
-              </button>
-              <button onClick={() => scrollToSection('gallery')} className="text-sm hover:text-primary transition-colors">
-                Галерея
               </button>
               <button onClick={() => scrollToSection('contacts')} className="text-sm hover:text-primary transition-colors">
                 Контакты
@@ -119,10 +119,36 @@ const Index = () => {
           <Button
             size="lg"
             className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg"
-            onClick={() => scrollToSection('rooms')}
+            onClick={() => scrollToSection('gallery')}
           >
-            Выбрать номер
+            Посмотреть галерею
           </Button>
+        </div>
+      </section>
+
+      <section id="gallery" className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Фотогалерея</h2>
+            <p className="text-lg text-gray-600">Откройте для себя наш отель</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {gallery.map((image, index) => (
+              <div
+                key={index}
+                className="relative h-80 overflow-hidden rounded-lg group cursor-pointer"
+              >
+                <img
+                  src={image}
+                  alt={`Gallery ${index + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <Icon name="ZoomIn" className="text-white" size={40} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -263,32 +289,6 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="gallery" className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Фотогалерея</h2>
-            <p className="text-lg text-gray-600">Откройте для себя наш отель</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {gallery.map((image, index) => (
-              <div
-                key={index}
-                className="relative h-80 overflow-hidden rounded-lg group cursor-pointer"
-              >
-                <img
-                  src={image}
-                  alt={`Gallery ${index + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Icon name="ZoomIn" className="text-white" size={40} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="contacts" className="py-24 bg-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -341,9 +341,15 @@ const Index = () => {
                   <p>Аэропорт Шереметьево: 40 минут на автомобиле</p>
                 </div>
               </div>
-              <Button className="w-full mt-8 bg-primary hover:bg-primary/90">
-                Построить маршрут
-              </Button>
+              <div className="mt-6 h-64 bg-gray-700 rounded-lg overflow-hidden">
+                <iframe
+                  src="https://yandex.ru/map-widget/v1/?um=constructor%3A64b0d0d6f6b1f1e8e0f8e0f8e0f8e0f8e0f8e0f8e0f8e0f8e0f8e0f8e0&amp;source=constructor"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  title="Карта отеля"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
